@@ -1,4 +1,7 @@
+'use scrict'; 
+
 const request = require('request');
+const logRobotsTxt = require('debug')('services:robotstxt')
 
 const requestRobotsTxtFiles = (robotTxtFileUrls) => {
     return new Promise((resolve, reject) => {

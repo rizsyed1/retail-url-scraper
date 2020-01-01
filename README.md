@@ -5,7 +5,7 @@ To Install and run:
 
 1. npm install
 
-2. DEBUG=site-urls:* npm start
+2. npm start
 
 
 node v10.16.3
