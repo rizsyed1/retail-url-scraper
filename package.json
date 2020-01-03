@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=gzipservice* node ./app/start-server.js"
+    "start": "DEBUG=scraper-* node ./app",
+    "test": "echo Tests are not implemented; exit 1"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

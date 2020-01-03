@@ -5,8 +5,8 @@ To Install and run:
 
 1. npm install
 
-2. DEBUG=site-urls:* npm start
+2. npm start
 
 
-node v10.16.3
-npm v6.9.0
+node v12.14.0
+npm v6.13.4
