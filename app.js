@@ -1,11 +1,13 @@
-'use scrict'; 
+'use strict'; 
 
 const createError = require('http-errors');
 const express = require('express');
 const app = express();
 const requestRobotsTxtFiles = require('./services/robots.service');
 const gzipArrs = require('./services/gzip.service');
+const readXml = require('./services/readxml.service');
 const log = require('debug')('app');
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -15,18 +17,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/site-urls/:lookUpUrl', async (req, res, next) => {
-
-  const scrapeRobotsTxtFiles = async (lookUpUrl) => {
-    robotTxtFileUrl = `https://${lookUpUrl}/robots.txt`;
-    const urlArr = await requestRobotsTxtFiles(robotTxtFileUrl);
-    return urlArr;
-  };
-
-
   const lookUpUrl = req.params.lookUpUrl;
-  const siteMapArr = await scrapeRobotsTxtFiles(lookUpUrl);
-  const nestedSitemapUrlArr = await gzipArrs(siteMapArr); 
-  log(nestedSitemapUrlArr);
+  const siteMapArr = await requestRobotsTxtFiles(lookUpUrl);
+  const nestedSitemapUrlArr = await gzipArrs(siteMapArr[0]); 
+  const urlArr = await readXml(nestedSitemapUrlArr);
+  log(urlArr);
 })
 
 
