@@ -12,18 +12,6 @@ const log = require('debug')('app');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.json('Welcome to the express app')
-});
-
-app.get('/site-urls/:lookUpUrl', async (req, res, next) => {
-  const lookUpUrl = req.params.lookUpUrl;
-  const siteMapArr = await requestRobotsTxtFiles(lookUpUrl);
-  const nestedSitemapUrlArr = await gzipArrs(siteMapArr[0]); 
-  const urlArr = await readXml(nestedSitemapUrlArr);
-  log(urlArr);
-})
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
