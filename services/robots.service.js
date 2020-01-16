@@ -5,9 +5,8 @@ const log = require('debug')('services:robotstxt');
 const util = require('util');
 
 const requestRobotsTxtFiles = (url) => {
-  const robotTxtFileUrl = `https://${url}/robots.txt`;
     return new Promise((resolve, reject) => {
-      request(robotTxtFileUrl, (err, res, body) => {
+      request(url, (err, res, body) => {
         const disallowDict = {}
         if (err) reject(err);  
         const urlArr = body.split(/\s+/).filter(bodyVal => /^https:.*(xml.gz)$/.test(bodyVal) | /^https:.*(xml)$/.test(bodyVal));
