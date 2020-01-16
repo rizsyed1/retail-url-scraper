@@ -4,14 +4,17 @@ const requestRobotsTxtFiles = require('./services/robots.service');
 const gzipArrs = require('./services/gzip.service');
 const readXml = require('./services/readxml.service');
 const log = require('../services/log.service')('handler:site-urls');
-
-const siteMapArr = await requestRobotsTxtFiles(lookUpUrl);
-const nestedSitemapUrlArr = await gzipArrs(siteMapArr[0]); 
-const urlArr = await readXml(nestedSitemapUrlArr);
 const path = '/site-urls/:lookUpUrl';
 
-async (req, res, next) => {
-    const lookUpUrl = req.params.lookUpUrl;
+const siteUrlHandler = async(res, req, next) => {
+  const lookUpUrl = req.params.lookUpUrl;
+  const robotTxtFileUrl = `https://${url}/robots.txt`;
+  const sitemaps = await requestRobotsTxtFiles(robotTxtFileUrl);
+  const nestedSitemap = await gzipArrs(siteMapArr[0]); 
+  const urlArr = await readXml(nestedSitemapUrlArr);
+}
 
-    log(urlArr);
-  })
+module.exports = {
+  hander: siteUrlHandler,
+  path 
+}
