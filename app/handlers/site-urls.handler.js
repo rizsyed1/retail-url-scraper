@@ -1,20 +1,21 @@
 'use strict'; 
 
-const requestRobotsTxtFiles = require('./services/robots.service');
-const gzipArrs = require('./services/gzip.service');
-const readXml = require('./services/readxml.service');
-const log = require('../services/log.service')('handler:site-urls');
+const requestRobotsTxtFiles = require('../../services/robots.service');
+const gzipArrs = require('../../services/gzip.service');
+const readXml = require('../../services/readxml.service');
+const log = require('../../services/log.service')('handler:site-urls');
 const path = '/site-urls/:lookUpUrl';
 
-const siteUrlHandler = async(res, req, next) => {
-  const lookUpUrl = req.params.lookUpUrl;
+const siteUrlHandler = async(req, res, next) => {
+  const url = req.params.lookUpUrl;
   const robotTxtFileUrl = `https://${url}/robots.txt`;
   const sitemaps = await requestRobotsTxtFiles(robotTxtFileUrl);
-  const nestedSitemap = await gzipArrs(siteMapArr[0]); 
-  const urlArr = await readXml(nestedSitemapUrlArr);
-}
+  const nestedSitemap = await gzipArrs(sitemaps[0]); 
+  const urlArr = await readXml(nestedSitemap);
+  log(`urlArr is ${urlArr}`);
+};
 
 module.exports = {
-  hander: siteUrlHandler,
+  handler: siteUrlHandler,
   path 
-}
+};

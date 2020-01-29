@@ -2,10 +2,12 @@
 
 const request = require('request');
 const zlib = require('zlib');
-const log = require('debug')('services:gzipservice')
+const log = require('./log.service')('services:gzipservice');
+const util = require('util');
 
-const gunzipUrlArr = async fromArr => {
-  const gunzipUnflatArr = await gunzipUrls(fromArr);
+const gunzipUrlArr = async arr => {
+  const gunzipUnflatArr = await gunzipUrls(arr);
+  log(`gunzipUnflatArr: ${util.inspect(gunzipUnflatArr)}`);
   const gunzipArr = gunzipUnflatArr.flat(Infinity);
   const gunzippedUrlArr = gunzipArr.filter(url => url.slice(-2) === 'gz');
   if (gunzippedUrlArr.length > 0) {
@@ -18,9 +20,9 @@ const gunzipUrlArr = async fromArr => {
   }
 };
 
-const gunzipUrls = fromArr => {
+const gunzipUrls = arr => {
   return Promise.all(
-    fromArr.map(siteMapUrl => {
+    arr.map(siteMapUrl => {
       if (siteMapUrl.slice(-2) === 'gz') {
         const gunzipArr = reqGzipPage(siteMapUrl);
         return gunzipArr;

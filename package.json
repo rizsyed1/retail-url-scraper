@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=services:*,app node ./app/start-server.js"
+    "start": "DEBUG=scraper-*,app node ./index",
+    "test": "echo tests are not implemented; exit 1"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
