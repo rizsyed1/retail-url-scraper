@@ -12,6 +12,7 @@ const siteUrlHandler = async(req, res, next) => {
   const sitemaps = await requestRobotsTxtFiles(robotTxtFileUrl);
   const nestedSitemap = await gzipArrs(sitemaps[0]); 
   const urlArr = await readXml(nestedSitemap);
+  res.status(200).send(urlArr);
   log(`urlArr is ${urlArr}`);
 };
 
