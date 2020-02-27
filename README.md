@@ -8,5 +8,5 @@ To Install and run:
 2. npm start
 
 
-node v10.16.3
+node v12.2.0
 npm v6.9.0

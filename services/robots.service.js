@@ -1,7 +1,7 @@
 'use scrict'; 
 
 const request = require('request');
-const log = require('debug')('services:robotstxt');
+const log = require('../services/log.service')('services:robotstxt');
 const util = require('util');
 
 const requestRobotsTxtFiles = (url) => {
@@ -9,11 +9,15 @@ const requestRobotsTxtFiles = (url) => {
       request(url, (err, res, body) => {
         const disallowDict = {}
         if (err) reject(err);  
-        const urlArr = body.split(/\s+/).filter(bodyVal => /^https:.*(xml.gz)$/.test(bodyVal) | /^https:.*(xml)$/.test(bodyVal));
+        const urlArr = body.split(/\s+/).filter(bodyVal => {
+          return /^https:.*(xml.gz)$/.test(bodyVal) || 
+          /^https:.*(xml)$/.test(bodyVal) ||
+          /^http:.*(xml.gz)$/.test(bodyVal) ||
+          /^http:.*(xml)$/.test(bodyVal)
+        });
         body.split(/\s+/)
           .filter( (bodyVal, i, arr) => arr[i - 1] === 'Disallow:')
           .forEach(disallowVal => disallowDict[disallowVal] = true);
-        log(`disallowDict: ${util.inspect(disallowDict)}`);
         resolve([urlArr, disallowDict]);
       });
     });

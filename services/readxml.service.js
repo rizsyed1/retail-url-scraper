@@ -1,20 +1,25 @@
 'use strict';
 
 const util = require('util');
-const log = require('debug')('services:readxml');
+const log = require('../services/log.service')('services:readxml');
+const gunzipArrs = require('../services/gzip.service');
 const request = require('request');
 
 const readXml = async xmlArr => {
+    log(`xmlArr is ${xmlArr.slice(0, 40)}`)
     const urlArr = await readXmlArr(xmlArr);
     const flatUrlArr = urlArr.flat(Infinity);
-    const filteredArr = flatUrlArr.filter(url => url.slice(-3) === 'xml');
-    if (filteredArr.length > 0) {
-        const newUrlArr = await readXml(filteredArr)
-        const returnArr = flatUrlArr.filter(url => url.slice(-3) !== 'xml').concat(newUrlArr);
+    const gunzippedUrlArr = await gunzipArrs(flatUrlArr);
+    const flatGunzippedUrlArr = gunzippedUrlArr.flat(Infinity);
+    log(`flatGunzippedUrlArr is ${flatGunzippedUrlArr.slice(0, 40)}`);
+    const filteredXmlArr = flatGunzippedUrlArr.filter(url => url.slice(-3) === 'xml');
+    if (filteredXmlArr.length > 0) {
+        const newUrlArr = await readXml(filteredXmlArr);
+        const returnArr = flatGunzippedUrlArr.filter(url => url.slice(-3) !== 'xml').concat(newUrlArr);
         return returnArr;
     }
     else {
-        return flatUrlArr; 
+        return flatGunzippedUrlArr; 
     }
 }
 
