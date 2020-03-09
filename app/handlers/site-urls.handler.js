@@ -10,10 +10,12 @@ const siteUrlHandler = async(req, res, next) => {
     const url = req.params.lookUpUrl;
     const robotTxtFileUrl = `https://${url}/robots.txt`;
     const sitemaps = await requestRobotsTxtFiles(robotTxtFileUrl);
+    log(`robots.service returns ${sitemaps[0].length} urls`)
     const nestedSitemap = await gunzipArrs(sitemaps[0]); 
+    log(`gzip.service returns ${nestedSitemap.length} urls`)
     const urlArr = await readXml(nestedSitemap);
+    log(`readXml returns arr length ${urlArr.length}, arr is ${urlArr.slice(0, 20)}`);
     res.status(200).send(urlArr);
-    log(`urlArr is ${urlArr.slice(0, 70)}`);
 };
 
 module.exports = {

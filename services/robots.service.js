@@ -15,6 +15,7 @@ const requestRobotsTxtFiles = (url) => {
           /^http:.*(xml.gz)$/.test(bodyVal) ||
           /^http:.*(xml)$/.test(bodyVal)
         });
+        log(`urlArr length is ${urlArr.length}`);
         body.split(/\s+/)
           .filter( (bodyVal, i, arr) => arr[i - 1] === 'Disallow:')
           .forEach(disallowVal => disallowDict[disallowVal] = true);

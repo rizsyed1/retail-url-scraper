@@ -6,13 +6,12 @@ const log = require('../services/log.service')('services:gzipservice');
 const util = require('util');
 
 const gunzipUrlArr = async arr => {
-  const gunzipUnflatArr = await gunzipUrls(arr);
-  const gunzipArr = gunzipUnflatArr.flat(Infinity);
+  const gunzippedUrls = await gunzipUrls(arr);
+  const gunzipArr = gunzippedUrls.flat(Infinity);
   const gunzippedUrlArr = gunzipArr.filter(url => url.slice(-2) === 'gz');
   if (gunzippedUrlArr.length > 0) {
-    const nestedGunZipArr = gunzipUrlArr(gunzippedUrlArr);
-    gunzipArr.concat(nestedGunZipArr);
-    return gunzipArr;
+    const nestedGunZipArr = await gunzipUrlArr(gunzippedUrlArr);
+    return gunzipArr.concat(nestedGunZipArr);
   }
   else {
     return gunzipArr;
@@ -31,7 +30,7 @@ const gunzipUrls = arr => {
       }
     })
   ); 
-}
+};
 
 const reqGzipPage = url => {
   return new Promise(async (resolve, reject) => {

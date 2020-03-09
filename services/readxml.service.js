@@ -24,8 +24,13 @@ const readXml = async xmlArr => {
 const readXmlArr = xmlUrlArr => {
     return Promise.all(
         xmlUrlArr.map(url => {
-            const arr = requestXml(url);
-            return arr;
+            if (url.slice(-3) === 'xml'){ 
+                const arr = requestXml(url);
+                return arr;
+            }
+            else {
+                return url;
+            }
         })
     );
 }
