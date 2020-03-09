@@ -1,7 +1,7 @@
 'use strict';
 
 const util = require('util');
-const log = require('../services/log.service')('services:readxml');
+const log = require('./log.service')('services:readxml');
 const gunzipArrs = require('../services/gzip.service');
 const request = require('request');
 

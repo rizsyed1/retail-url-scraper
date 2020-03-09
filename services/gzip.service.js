@@ -2,7 +2,7 @@
 
 const request = require('request');
 const zlib = require('zlib');
-const log = require('../services/log.service')('services:gzipservice');
+const log = require('./log.service')('services:gzipservice');
 const util = require('util');
 
 const gunzipUrlArr = async arr => {

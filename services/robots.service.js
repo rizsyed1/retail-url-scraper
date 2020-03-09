@@ -1,7 +1,7 @@
 'use scrict'; 
 
 const request = require('request');
-const log = require('../services/log.service')('services:robotstxt');
+const log = require('./log.service')('services:robotstxt');
 const util = require('util');
 
 const requestRobotsTxtFiles = (url) => {
