@@ -5,6 +5,8 @@ const zlib = require('zlib');
 const log = require('./log.service')('services:gzipservice');
 const util = require('util');
 
+const space = /\s+/;
+
 const gunzipUrlArr = async arr => {
   const gunzippedUrls = await gunzipUrls(arr);
   const gunzipArr = gunzippedUrls.flat(Infinity);
@@ -48,7 +50,6 @@ const gunzipPage = body => {
     zlib.gunzip(body, (err, unzipped) => {
       if (err) reject(err);
       const unzippedSiteMap = unzipped.toString();
-      const space = /\s+/;
       const unzippedSiteMapArr = unzippedSiteMap.split(space);
       const scrapedSiteMapXmlElementArr = unzippedSiteMapArr.filter(text => text.slice(-6) === '</loc>')
       const scrapedSiteMapUrlArr = scrapedSiteMapXmlElementArr.map(text => text.slice(5, text.length - 6));
