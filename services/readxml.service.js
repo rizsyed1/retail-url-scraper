@@ -28,7 +28,7 @@ const readXmlArr = xmlUrlArr => {
                 return requestXml(url);
             }
             else {
-                return url;
+                return [url];
             }
         })
     );
