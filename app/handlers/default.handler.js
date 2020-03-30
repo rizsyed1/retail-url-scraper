@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
-const debug = require('../../services/log.service')('handler:default');
+const debug = require("../../services/log.service")("handler:default");
 
-const path = '/';
+const path = "/";
 
 async function handler(req, res, next) {
-    res.json('Welcome to the Express app');
-};
+    res.json("Welcome to the Express app");
+}
 
 module.exports = {
-    handler, 
+    handler,
     path
 };
