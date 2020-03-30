@@ -1,3 +1,5 @@
+/** @format */
+
 "use strict";
 
 const log = require("./log.service")("services:readxml");
@@ -11,9 +13,7 @@ const readXml = async xmlArr => {
     const flatUrlArr = urlArr.flat(Infinity);
     const gunzippedUrlArr = await gunzipArrs(flatUrlArr);
     const flatGunzippedUrlArr = gunzippedUrlArr.flat(Infinity);
-    const filteredXmlArr = flatGunzippedUrlArr.filter(
-        url => url.slice(-3) === "xml"
-    );
+    const filteredXmlArr = flatGunzippedUrlArr.filter(url => url.slice(-3) === "xml");
     if (filteredXmlArr.length > 0) {
         const newUrlArr = await readXml(filteredXmlArr);
         return flatGunzippedUrlArr

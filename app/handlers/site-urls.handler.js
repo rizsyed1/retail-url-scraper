@@ -8,14 +8,14 @@ const readXml = require("../../services/readxml.service");
 const log = require("../../services/log.service")("handler:site-urls");
 const path = "/site-urls/:lookUpUrl";
 
-const SITETIMEOUT = 'Website took too long to respond';
+const SITETIMEOUT = "Website took too long to respond";
 
 const siteUrlHandler = async (req, res, next) => {
     try {
         const url = req.params.lookUpUrl;
         const robotTxtFileUrl = `https://${url}/robots.txt`;
         const sitemaps = await requestRobotsTxtFiles(robotTxtFileUrl);
-        if(sitemaps === SITETIMEOUT) throw SITETIMEOUT;
+        if (sitemaps === SITETIMEOUT) throw SITETIMEOUT;
         log(`robots.service returns ${sitemaps[0].length} urls`);
         const nestedSitemap = await gunzipArrs(sitemaps[0]);
         log(`gzip.service returns ${nestedSitemap.length} urls`);
@@ -29,8 +29,7 @@ const siteUrlHandler = async (req, res, next) => {
                 or the site might not follow sitemap protocols. Or maybe
                 the website just doesn't like strangers...`
             );
-        } 
-        else {
+        } else {
             res.status(INTERNAL_SERVER_ERROR).send("something isn't working...");
             log(`error is ${e}`);
         }

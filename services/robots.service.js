@@ -30,7 +30,7 @@ const requestRobotsTxtFiles = url => {
         });
         setTimeout(() => {
             if (!requestHasFinished) {
-                reject('Website took too long to respond');
+                reject("Website took too long to respond");
             }
         }, 10000);
     });

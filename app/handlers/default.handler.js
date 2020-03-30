@@ -1,3 +1,5 @@
+/** @format */
+
 "use strict";
 
 const debug = require("../../services/log.service")("handler:default");
