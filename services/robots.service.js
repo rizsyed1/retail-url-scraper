@@ -12,13 +12,13 @@ const timeOutRejectSeconds = (seconds, message) => {
     });
 };
 
-const requestRobotsTxtFiles = url => {
+const requestRobotsTxtFiles = (url) => {
     const httpRequestTimeOut = new Promise((resolve, reject) => {
         request(url, (err, res, body) => {
             const disallowDict = {};
             if (err) reject(err);
             else {
-                const urlArr = body.split(/\s+/).filter(bodyVal => {
+                const urlArr = body.split(/\s+/).filter((bodyVal) => {
                     return (
                         /^https:.*(xml.gz)$/.test(bodyVal) ||
                         /^https:.*(xml)$/.test(bodyVal) ||
@@ -28,14 +28,14 @@ const requestRobotsTxtFiles = url => {
                 });
                 body.split(/\s+/)
                     .filter((bodyVal, i, arr) => arr[i - 1] === "Disallow:")
-                    .forEach(disallowVal => (disallowDict[disallowVal] = true));
+                    .forEach((disallowVal) => (disallowDict[disallowVal] = true));
                 resolve([urlArr, disallowDict]);
             }
         });
     });
     return Promise.race([
         httpRequestTimeOut,
-        timeOutRejectSeconds(10000, "Website took too long to respond")
+        timeOutRejectSeconds(10000, "Website took too long to respond"),
     ]);
 };
 
