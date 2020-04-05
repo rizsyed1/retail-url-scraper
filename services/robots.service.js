@@ -6,9 +6,14 @@ const request = require("request");
 const log = require("./log.service")("services:robotstxt");
 const util = require("util");
 
+const timeOutRejectSeconds = (seconds, message) => {
+    return new Promise((_, reject) => {
+        setTimeout(() => reject(message), seconds);
+    });
+};
+
 const requestRobotsTxtFiles = url => {
-    let requestHasFinished = false;
-    return new Promise((resolve, reject) => {
+    const httpRequestTimeOut = new Promise((resolve, reject) => {
         request(url, (err, res, body) => {
             const disallowDict = {};
             if (err) reject(err);
@@ -24,16 +29,14 @@ const requestRobotsTxtFiles = url => {
                 body.split(/\s+/)
                     .filter((bodyVal, i, arr) => arr[i - 1] === "Disallow:")
                     .forEach(disallowVal => (disallowDict[disallowVal] = true));
-                requestHasFinished = true;
                 resolve([urlArr, disallowDict]);
             }
         });
-        setTimeout(() => {
-            if (!requestHasFinished) {
-                reject("Website took too long to respond");
-            }
-        }, 10000);
     });
+    return Promise.race([
+        httpRequestTimeOut,
+        timeOutRejectSeconds(10000, "Website took too long to respond")
+    ]);
 };
 
 module.exports = requestRobotsTxtFiles;

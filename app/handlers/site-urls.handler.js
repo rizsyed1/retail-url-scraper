@@ -23,6 +23,7 @@ const siteUrlHandler = async (req, res, next) => {
         log(`readXml returns arr length ${urlArr.length}, arr is ${urlArr.slice(0, 20)}`);
         res.status(OK).send(urlArr);
     } catch (e) {
+        log(`error is ${e}`);
         if (e instanceof TypeError || e === SITETIMEOUT) {
             res.status(INTERNAL_SERVER_ERROR).send(
                 `Can't get links from site. The URL might be incorrect, 
