@@ -39,5 +39,5 @@ const siteUrlHandler = async (req, res, next) => {
 
 module.exports = {
     handler: siteUrlHandler,
-    path
+    path,
 };
