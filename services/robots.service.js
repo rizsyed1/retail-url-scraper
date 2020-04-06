@@ -5,6 +5,7 @@
 const request = require("request");
 const log = require("./log.service")("services:robotstxt");
 const util = require("util");
+const promiseRace = require("./promiseRace.service");
 
 const timeOutRejectSeconds = (seconds, message) => {
     return new Promise((_, reject) => {
@@ -33,10 +34,10 @@ const requestRobotsTxtFiles = (url) => {
             }
         });
     });
-    return Promise.race([
+    return promiseRace(
         httpRequestTimeOut,
         timeOutRejectSeconds(10000, "Website took too long to respond"),
-    ]);
+    );
 };
 
 module.exports = requestRobotsTxtFiles;
