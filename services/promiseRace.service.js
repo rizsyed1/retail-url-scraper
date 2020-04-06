@@ -2,8 +2,14 @@
 
 const log = require("./log.service")("services:promiseRace");
 
-const promiseRace = (...args) => {
-    return Promise.race(args);
+const timeOutRejectSeconds = (seconds, message) => {
+    return new Promise((_, reject) => {
+        setTimeout(() => reject(message), seconds);
+    });
 };
 
-module.exports = promiseRace;
+const promiseTimeOut = (promise, seconds, message) => {
+    return Promise.race([promise, timeOutRejectSeconds(seconds, message)]);
+};
+
+module.exports = promiseTimeOut;
