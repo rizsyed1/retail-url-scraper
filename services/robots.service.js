@@ -36,7 +36,7 @@ const requestRobotsTxtFiles = (url) => {
     });
     return promiseRace(
         httpRequestTimeOut,
-        timeOutRejectSeconds(10000, "Website took too long to respond"),
+        timeOutRejectSeconds(10000, "Website took too long to respond")
     );
 };
 
