@@ -1,4 +1,4 @@
-FROM node:current-slim
+FROM node:12.16.1-buster-slim
 WORKDIR /usr/src/index
 COPY . .
 RUN npm install
