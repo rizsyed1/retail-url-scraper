@@ -9,13 +9,13 @@ const defaultHandler = require('./app/handlers/default.handler');
 
 const log = require('./services/log.service')('app');
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.set(PORT);
 
 const server = http.createServer(app);
-server.listen(PORT, HOST);
+server.listen(PORT);
 server.on('error', (error) => {
   throw error;
 });
