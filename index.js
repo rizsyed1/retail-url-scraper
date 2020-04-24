@@ -21,7 +21,7 @@ server.on('error', (error) => {
 });
 
 server.on('listening', () => {
-  log(`listening on ${HOST}:${PORT}`);
+  log(`listening on ${PORT}`);
 })
 
 app.use(express.json());
