@@ -28,8 +28,9 @@ const requestRobotsTxtFiles = (url) => {
                     resolve([urlArr, disallowDict]);
                 }
             });
-        }), 
-        10000, "Website took too long to respond"
+        }),
+        10000,
+        "Website took too long to respond"
     );
 };
 
