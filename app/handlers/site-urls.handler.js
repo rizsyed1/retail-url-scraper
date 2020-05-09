@@ -6,7 +6,7 @@ const requestRobotsTxtFiles = require("../../services/robots.service");
 const gunzipArrs = require("../../services/gzip.service");
 const readXml = require("../../services/readxml.service");
 const log = require("../../services/log.service")("handler:site-urls");
-const path = "/site-urls/:lookUpUrl";
+const path = "/:lookUpUrl";
 
 const SITETIMEOUT = "Website took too long to respond";
 
