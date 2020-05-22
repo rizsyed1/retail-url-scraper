@@ -14,10 +14,9 @@ const siteUrlHandler = async (req, res, next) => {
     try {
         const url = req.params.lookUpUrl;
         const robotTxtFileUrl = `https://${url}/robots.txt`;
-        log(robotTxtFileUrl);
         const sitemaps = await requestRobotsTxtFiles(robotTxtFileUrl);
         if (sitemaps === SITETIMEOUT) throw SITETIMEOUT;
-        log(`robots.service returns ${sitemaps[0].length} urls, ${sitemaps[0]}`);
+        log(`robots.service returns ${sitemaps[0].length} urls`);
         const nestedSitemap = await gunzipArrs(sitemaps[0]);
         log(`gzip.service returns ${nestedSitemap.length} urls`);
         const urlArr = await readXml(nestedSitemap);

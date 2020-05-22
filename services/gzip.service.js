@@ -11,7 +11,11 @@ const space = /\s+/;
 
 const gunzipUrlArr = async (arr) => {
     const gunzippedUrls = await gunzipUrls(arr);
+<<<<<<< HEAD
     const gunzipArr = gunzippedUrls.flat(Infinity).filter((url) => url !== null);
+=======
+    const gunzipArr = gunzippedUrls.flat(Infinity);
+>>>>>>> 9f39068342cdc89d46e29aab4c62128ea1964ae3
     const gunzippedUrlArr = gunzipArr.filter((url) => url.slice(-2) === "gz");
     if (gunzippedUrlArr.length > 0) {
         const nestedGunZipArr = await gunzipUrlArr(gunzippedUrlArr);
