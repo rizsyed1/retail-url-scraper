@@ -10,3 +10,5 @@ To Install and run:
 
 node v12.2.0
 npm v6.9.0
+
+Deployed here: https://retail-url-scraper.herokuapp.com/
